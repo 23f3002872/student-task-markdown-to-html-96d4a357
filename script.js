@@ -1,6 +1,11 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const markdownInput = `This is a test\n---`;
-    const htmlContent = marked(markdownInput);
-    document.getElementById('markdown-output').innerHTML = htmlContent;
-    hljs.highlightAll();
-});
+const markdownInput = document.getElementById('markdown-input');
+const wordCountDisplay = document.getElementById('markdown-word-count');
+
+function updateWordCount() {
+    const text = markdownInput.value;
+    const words = text.trim().split(/\s+/).filter(word => word.length > 0).length;
+    const formattedCount = new Intl.NumberFormat().format(words);
+    wordCountDisplay.textContent = `Word Count: ${formattedCount}`;
+}
+
+markdownInput.addEventListener('input', updateWordCount);
